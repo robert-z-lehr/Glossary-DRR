@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decision, Risk, and Reliability Atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar no-print">
+    <div>
+      <h1>Decision, Risk, and Reliability Atlas</h1>
+      <p class="subtitle">Editable glossary for GitHub Pages with PDF export and add-row support.</p>
+    </div>
+    <div class="actions">
+      <button id="addRowTop" class="btn secondary" type="button">＋ Add Row</button>
+      <button id="downloadPdf" class="btn primary" type="button">Download PDF</button>
+    </div>
+  </header>
+
+  <main class="page" id="atlasPage">
+    <section class="intro card">
+      <div>
+        <h2>Course Atlas</h2>
+        <p>
+          This table is designed for structured concept entries that can be edited directly in the browser,
+          persisted locally, and exported as a PDF.
+        </p>
+      </div>
+      <div class="meta-grid">
+        <div><span class="meta-label">Course</span><span>Decision, Risk, and Reliability</span></div>
+        <div><span class="meta-label">Format</span><span>GitHub Pages static site</span></div>
+        <div><span class="meta-label">Export</span><span>Client-side PDF</span></div>
+      </div>
+    </section>
+
+    <section class="card table-card">
+      <div class="table-wrap">
+        <table id="atlasTable">
+          <thead>
+            <tr>
+              <th>Term / Concept</th>
+              <th>Category</th>
+              <th>Definition</th>
+              <th>Notation / Symbols</th>
+              <th>Units / Dimensions</th>
+              <th>Core Formula(s)</th>
+              <th>Assumptions / Conditions</th>
+              <th>Recognition / When to Use</th>
+              <th>Layman Explanation</th>
+              <th>Analogy</th>
+              <th>Visual Concept</th>
+              <th>Example Application</th>
+              <th>Common Mistakes</th>
+              <th>Related Concepts</th>
+              <th>Mini Worked Example</th>
+              <th>Computation Tools</th>
+              <th>References</th>
+              <th class="no-print actions-col">Row</th>
+            </tr>
+          </thead>
+          <tbody id="atlasBody"></tbody>
+        </table>
+      </div>
+
+      <div class="table-footer no-print">
+        <button id="addRowBottom" class="add-row-btn" type="button" aria-label="Add a new empty row">
+          <span class="plus">＋</span>
+          <span>Add new empty row</span>
+        </button>
+        <button id="resetTable" class="btn ghost" type="button">Reset to Starter Rows</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
