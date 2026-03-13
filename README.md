@@ -1,5 +1,5 @@
 # Decision, Risk, and Reliability Atlas
-[Live Site](https://robert-z-lehr.github.io/Glossary-DRR/)
+## [Live Site](https://robert-z-lehr.github.io/Glossary-DRR/)
 
 A structured glossary atlas for core concepts in Decision Analysis, Risk, and Reliability engineering. This project provides a clean, expandable reference interface that can be hosted entirely on GitHub Pages. It includes:
 
