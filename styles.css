@@ -62,7 +62,7 @@ h3 { font-size: 1rem; }
 
 .controls-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 280px) minmax(320px, 1fr) minmax(260px, 360px);
+  grid-template-columns: minmax(220px, 280px) minmax(320px, 1fr) minmax(280px, 420px);
   gap: 14px;
   align-items: end;
 }
@@ -76,8 +76,7 @@ h3 { font-size: 1rem; }
   min-width: 0;
 }
 
-.control-label,
-.meta-label {
+.control-label {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -85,7 +84,8 @@ h3 { font-size: 1rem; }
 }
 
 select,
-input[type="search"] {
+input[type="search"],
+textarea {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -95,8 +95,14 @@ input[type="search"] {
   color: var(--text);
 }
 
+textarea {
+  resize: vertical;
+  min-height: 112px;
+}
+
 input[type="search"]:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: 2px solid #c9d7ff;
   border-color: #b7c9ff;
 }
@@ -127,20 +133,22 @@ select:focus {
   line-height: 1.5;
 }
 
-.meta-strip {
+.feedback-form {
   margin-top: 18px;
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.meta-strip > div {
-  background: var(--soft);
-  border: 1px solid #d9e5ff;
-  border-radius: 12px;
-  padding: 12px 14px;
-  display: grid;
-  gap: 4px;
+.feedback-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.feedback-status {
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .section-head {
@@ -223,14 +231,16 @@ select:focus {
 }
 
 .table-shell {
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
 .atlas-table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  min-width: 760px;
+  table-layout: fixed;
 }
 
 .atlas-table th,
@@ -239,6 +249,8 @@ select:focus {
   padding: 12px 14px;
   text-align: left;
   vertical-align: top;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .atlas-table thead th {
@@ -253,16 +265,46 @@ select:focus {
   background: #fcfdff;
 }
 
-.atlas-table th:first-child,
-.atlas-table td:first-child {
-  width: 28%;
-  min-width: 220px;
+.atlas-table th[data-col="term"],
+.atlas-table td[data-col="term"] {
+  width: 280px;
+  min-width: 280px;
 }
 
-.atlas-table th:nth-child(2),
-.atlas-table td:nth-child(2) {
-  width: 44%;
+.atlas-table th[data-col="definition"],
+.atlas-table td[data-col="definition"] {
+  width: 420px;
+  min-width: 420px;
+}
+
+.atlas-table th[data-col="notation"],
+.atlas-table td[data-col="notation"] {
+  width: 260px;
+  min-width: 260px;
+}
+
+.atlas-table th[data-col="example"],
+.atlas-table td[data-col="example"] {
+  width: 340px;
+  min-width: 340px;
+}
+
+.atlas-table th[data-col="analogy"],
+.atlas-table td[data-col="analogy"] {
+  width: 340px;
+  min-width: 340px;
+}
+
+.atlas-table th[data-col="failureModes"],
+.atlas-table td[data-col="failureModes"] {
+  width: 280px;
   min-width: 280px;
+}
+
+.atlas-table th[data-col="visualization"],
+.atlas-table td[data-col="visualization"] {
+  width: 260px;
+  min-width: 260px;
 }
 
 .term-cell {
@@ -298,6 +340,12 @@ select:focus {
   background: var(--accent-dark);
 }
 
+.btn.secondary {
+  background: white;
+  color: var(--accent-dark);
+  border: 1px solid #c9d7ff;
+}
+
 @media (max-width: 980px) {
   .controls-grid {
     grid-template-columns: 1fr;
@@ -305,10 +353,6 @@ select:focus {
 
   .topbar {
     flex-direction: column;
-  }
-
-  .atlas-table {
-    min-width: 640px;
   }
 }
 
@@ -337,6 +381,7 @@ select:focus {
   }
 
   .atlas-table {
+    width: 100%;
     min-width: 0;
     font-size: 10px;
   }

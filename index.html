@@ -41,6 +41,8 @@
             <label><input type="checkbox" data-column="notation" /> Notation / Symbols</label>
             <label><input type="checkbox" data-column="example" /> Example</label>
             <label><input type="checkbox" data-column="analogy" /> Analogy</label>
+            <label><input type="checkbox" data-column="failureModes" /> Failure Modes</label>
+            <label><input type="checkbox" data-column="visualization" /> Visualization</label>
           </div>
         </div>
       </div>
@@ -51,20 +53,17 @@
         <h2 id="courseTitle">Decision, Risk, and Reliability</h2>
         <p id="courseDescription" class="intro-text"></p>
       </div>
-      <div class="meta-strip">
-        <div>
-          <span class="meta-label">Default columns</span>
-          <span>Term / Concept, Definition</span>
+
+      <form id="feedbackForm" class="feedback-form no-print">
+        <label class="control-block control-block-wide" for="feedbackInput">
+          <span class="control-label">Feedback</span>
+          <textarea id="feedbackInput" rows="4" placeholder="Enter feedback about the glossary layout, content, or usability."></textarea>
+        </label>
+        <div class="feedback-actions">
+          <button id="sendFeedbackBtn" class="btn secondary" type="submit">Send Feedback</button>
+          <span id="feedbackStatus" class="feedback-status" aria-live="polite"></span>
         </div>
-        <div>
-          <span class="meta-label">Expandable detail</span>
-          <span>Notation / Symbols, Example, Analogy</span>
-        </div>
-        <div>
-          <span class="meta-label">Organization</span>
-          <span>Sub-domain first</span>
-        </div>
-      </div>
+      </form>
     </section>
 
     <section class="card results-card" id="searchResultsSection" hidden>
