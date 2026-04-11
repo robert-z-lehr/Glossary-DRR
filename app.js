@@ -1,5 +1,6 @@
 const STORAGE_KEY = 'course_atlas_ui_state_v2';
 const FEEDBACK_EMAIL = 'robert.z.lehr@utexas.edu';
+const FEEDBACK_ENDPOINT = `https://formsubmit.co/ajax/${FEEDBACK_EMAIL}`;
 
 const DATA = {
   drr: {
@@ -232,6 +233,7 @@ const pdfBtn = document.getElementById('downloadPdf');
 const feedbackForm = document.getElementById('feedbackForm');
 const feedbackInput = document.getElementById('feedbackInput');
 const feedbackStatus = document.getElementById('feedbackStatus');
+const sendFeedbackBtn = document.getElementById('sendFeedbackBtn');
 
 let uiState = loadUiState();
 
@@ -260,7 +262,7 @@ function escapeHtml(value) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
+    .replace(/\"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
 
@@ -466,7 +468,7 @@ columnToggleGroup.addEventListener('change', event => {
   render();
 });
 
-feedbackForm.addEventListener('submit', event => {
+feedbackForm.addEventListener('submit', async event => {
   event.preventDefault();
   const message = feedbackInput.value.trim();
 
@@ -475,16 +477,38 @@ feedbackForm.addEventListener('submit', event => {
     return;
   }
 
-  const subject = `Glossary feedback: ${getActiveCourse().name}`;
-  const body = [
-    `Course: ${getActiveCourse().name}`,
-    '',
-    'Feedback:',
-    message
-  ].join('\n');
+  feedbackStatus.textContent = 'Sending...';
+  sendFeedbackBtn.disabled = true;
 
-  window.location.href = `mailto:${encodeURIComponent(FEEDBACK_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  feedbackStatus.textContent = 'Your email app should open with the feedback draft.';
+  try {
+    const response = await fetch(FEEDBACK_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `Glossary feedback: ${getActiveCourse().name}`,
+        course: getActiveCourse().name,
+        message,
+        _template: 'table',
+        _captcha: 'false'
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result?.success === false) {
+      throw new Error(result?.message || 'Submission failed.');
+    }
+
+    feedbackStatus.textContent = 'Feedback sent.';
+    feedbackInput.value = '';
+  } catch (error) {
+    feedbackStatus.textContent = `Could not send feedback: ${String(error.message || error)}`;
+  } finally {
+    sendFeedbackBtn.disabled = false;
+  }
 });
 
 pdfBtn.addEventListener('click', async () => {
