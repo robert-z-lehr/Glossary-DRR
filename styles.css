@@ -32,7 +32,7 @@ body {
   padding: 28px 0 18px;
 }
 
-h1, h2, h3 { margin: 0; }
+h1, h2, h3, h4 { margin: 0; }
 h1 { font-size: 2rem; letter-spacing: -0.03em; }
 h2 { font-size: 1.2rem; }
 h3 { font-size: 1rem; }
@@ -47,6 +47,11 @@ h3 { font-size: 1rem; }
   padding-bottom: 30px;
 }
 
+.panel-stack {
+  display: grid;
+  gap: 18px;
+}
+
 .card {
   background: var(--card);
   border: 1px solid var(--line);
@@ -56,7 +61,9 @@ h3 { font-size: 1rem; }
 
 .controls-card,
 .intro-card,
-.results-card {
+.results-card,
+.reference-card,
+.learn-card {
   padding: 18px 20px;
 }
 
@@ -133,20 +140,53 @@ textarea:focus {
   line-height: 1.5;
 }
 
+.tab-row {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 999px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
 .feedback-form {
   margin-top: 18px;
   display: grid;
   gap: 12px;
 }
 
-.feedback-actions {
+.feedback-actions,
+.reference-toolbar,
+.reference-nav,
+.reference-actions {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.feedback-status {
+.reference-toolbar {
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.reference-counter,
+.feedback-status,
+.result-count {
   color: var(--muted);
   font-size: 0.92rem;
 }
@@ -157,11 +197,6 @@ textarea:focus {
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
-}
-
-.result-count {
-  color: var(--muted);
-  font-size: 0.92rem;
 }
 
 .accordion-list {
@@ -230,7 +265,8 @@ textarea:focus {
   display: block;
 }
 
-.table-shell {
+.table-shell,
+.carousel-shell {
   overflow-x: auto;
   overflow-y: visible;
 }
@@ -266,46 +302,19 @@ textarea:focus {
 }
 
 .atlas-table th[data-col="term"],
-.atlas-table td[data-col="term"] {
-  width: 280px;
-  min-width: 280px;
-}
-
+.atlas-table td[data-col="term"] { width: 280px; min-width: 280px; }
 .atlas-table th[data-col="definition"],
-.atlas-table td[data-col="definition"] {
-  width: 420px;
-  min-width: 420px;
-}
-
+.atlas-table td[data-col="definition"] { width: 420px; min-width: 420px; }
 .atlas-table th[data-col="notation"],
-.atlas-table td[data-col="notation"] {
-  width: 260px;
-  min-width: 260px;
-}
-
+.atlas-table td[data-col="notation"] { width: 260px; min-width: 260px; }
 .atlas-table th[data-col="example"],
-.atlas-table td[data-col="example"] {
-  width: 340px;
-  min-width: 340px;
-}
-
+.atlas-table td[data-col="example"] { width: 340px; min-width: 340px; }
 .atlas-table th[data-col="analogy"],
-.atlas-table td[data-col="analogy"] {
-  width: 340px;
-  min-width: 340px;
-}
-
+.atlas-table td[data-col="analogy"] { width: 340px; min-width: 340px; }
 .atlas-table th[data-col="failureModes"],
-.atlas-table td[data-col="failureModes"] {
-  width: 280px;
-  min-width: 280px;
-}
-
+.atlas-table td[data-col="failureModes"] { width: 280px; min-width: 280px; }
 .atlas-table th[data-col="visualization"],
-.atlas-table td[data-col="visualization"] {
-  width: 260px;
-  min-width: 260px;
-}
+.atlas-table td[data-col="visualization"] { width: 260px; min-width: 260px; }
 
 .term-cell {
   font-weight: 600;
@@ -323,6 +332,101 @@ textarea:focus {
   color: var(--muted);
 }
 
+.reference-track {
+  display: flex;
+  gap: 18px;
+  padding: 6px 0 14px;
+  cursor: grab;
+  user-select: none;
+}
+
+.reference-track.dragging {
+  cursor: grabbing;
+}
+
+.reference-sheet {
+  flex: 0 0 min(780px, 88vw);
+  scroll-snap-align: center;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: white;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.reference-sheet.active {
+  border-color: #b7c9ff;
+}
+
+.reference-sheet h4 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.reference-subdomain {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+}
+
+.sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+}
+
+.sheet-block {
+  display: grid;
+  gap: 4px;
+}
+
+.sheet-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.learn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.learn-item {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  background: white;
+}
+
+.learn-item h4 {
+  margin-bottom: 8px;
+}
+
+.learn-subdomain {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.learn-block {
+  margin-top: 12px;
+}
+
+.learn-block:first-of-type {
+  margin-top: 0;
+}
+
+.learn-text {
+  line-height: 1.5;
+}
+
+.highlight-match mark {
+  background: #fff2a8;
+  padding: 0 2px;
+}
+
 .btn {
   border: 0;
   cursor: pointer;
@@ -336,9 +440,7 @@ textarea:focus {
   color: white;
 }
 
-.btn.primary:hover {
-  background: var(--accent-dark);
-}
+.btn.primary:hover { background: var(--accent-dark); }
 
 .btn.secondary {
   background: white;
@@ -354,44 +456,43 @@ textarea:focus {
   .topbar {
     flex-direction: column;
   }
+
+  .reference-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sheet-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media print {
-  body {
-    background: white;
-  }
-
-  .topbar, .page {
-    width: auto;
-    margin: 0;
-  }
-
-  .card, .accordion {
+  body { background: white; }
+  .topbar, .page { width: auto; margin: 0; }
+  .card, .accordion, .reference-sheet, .learn-item {
     border: 0;
     box-shadow: none;
     border-radius: 0;
   }
-
-  .accordion-panel {
-    display: block !important;
-  }
-
-  .table-shell {
-    overflow: visible;
-  }
-
+  .accordion-panel { display: block !important; }
+  .table-shell, .carousel-shell { overflow: visible; }
   .atlas-table {
     width: 100%;
     min-width: 0;
     font-size: 10px;
   }
-
   .atlas-table thead th {
     position: static;
     background: white;
   }
-
-  .no-print {
-    display: none !important;
+  .reference-track {
+    display: block;
   }
+  .reference-sheet {
+    width: 100%;
+    margin-bottom: 16px;
+    break-inside: avoid;
+  }
+  .no-print { display: none !important; }
 }

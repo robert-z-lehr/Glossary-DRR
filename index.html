@@ -15,7 +15,7 @@
   <header class="topbar no-print">
     <div>
       <h1>Glossary Atlas</h1>
-      <p class="subtitle">Compact glossary interface with sub-domain sections, progressive detail, and search.</p>
+      <p class="subtitle">Multi-course concept reference with glossary lookup, carousel sheets, and concept learning mode.</p>
     </div>
     <div class="top-actions">
       <button id="downloadPdf" class="btn primary" type="button">Export PDF</button>
@@ -32,10 +32,10 @@
 
         <label class="control-block control-block-wide" for="searchInput">
           <span class="control-label">Search</span>
-          <input id="searchInput" type="search" placeholder="Search term, definition, notation, example, analogy..." />
+          <input id="searchInput" type="search" placeholder="Search terms, definitions, analogies, reference sheets..." />
         </label>
 
-        <div class="control-block" aria-label="Column detail controls">
+        <div class="control-block glossary-only" id="glossaryColumnControl" aria-label="Column detail controls">
           <span class="control-label">More columns</span>
           <div class="column-toggles" id="columnToggleGroup">
             <label><input type="checkbox" data-column="notation" /> Notation / Symbols</label>
@@ -54,6 +54,12 @@
         <p id="courseDescription" class="intro-text"></p>
       </div>
 
+      <div class="tab-row no-print" role="tablist" aria-label="Atlas sections">
+        <button class="tab-btn active" id="tabGlossary" data-tab="glossary" role="tab" aria-selected="true" type="button">Glossary</button>
+        <button class="tab-btn" id="tabReference" data-tab="reference" role="tab" aria-selected="false" type="button">Reference Sheets</button>
+        <button class="tab-btn" id="tabLearn" data-tab="learn" role="tab" aria-selected="false" type="button">Learn the Concepts</button>
+      </div>
+
       <form id="feedbackForm" class="feedback-form no-print">
         <label class="control-block control-block-wide" for="feedbackInput">
           <span class="control-label">Feedback</span>
@@ -66,22 +72,54 @@
       </form>
     </section>
 
-    <section class="card results-card" id="searchResultsSection" hidden>
-      <div class="section-head">
-        <h3>Search Results</h3>
-        <span id="resultCount" class="result-count"></span>
-      </div>
-      <div class="table-shell">
-        <table class="atlas-table">
-          <thead>
-            <tr id="searchTableHeadRow"></tr>
-          </thead>
-          <tbody id="searchResultsBody"></tbody>
-        </table>
-      </div>
+    <section id="glossaryPanel" class="panel-stack">
+      <section class="card results-card" id="searchResultsSection" hidden>
+        <div class="section-head">
+          <h3>Search Results</h3>
+          <span id="resultCount" class="result-count"></span>
+        </div>
+        <div class="table-shell">
+          <table class="atlas-table">
+            <thead>
+              <tr id="searchTableHeadRow"></tr>
+            </thead>
+            <tbody id="searchResultsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="accordion-list" id="subdomainAccordion"></section>
     </section>
 
-    <section class="accordion-list" id="subdomainAccordion"></section>
+    <section id="referencePanel" class="panel-stack" hidden>
+      <section class="card reference-card">
+        <div class="reference-toolbar no-print">
+          <div class="reference-nav">
+            <button id="referencePrevBtn" class="btn secondary" type="button">← Previous</button>
+            <span id="referenceCounter" class="reference-counter"></span>
+            <button id="referenceNextBtn" class="btn secondary" type="button">Next →</button>
+          </div>
+          <div class="reference-actions">
+            <button id="downloadSheetBtn" class="btn secondary" type="button">Download Sheet</button>
+            <button id="emailSheetBtn" class="btn secondary" type="button">Email Sheet</button>
+          </div>
+        </div>
+
+        <div class="carousel-shell" id="carouselShell">
+          <div class="reference-track" id="referenceTrack"></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="learnPanel" class="panel-stack" hidden>
+      <section class="card learn-card">
+        <div class="section-head">
+          <h3>Learn the Concepts</h3>
+          <span id="learnCount" class="result-count"></span>
+        </div>
+        <div id="learnCards" class="learn-grid"></div>
+      </section>
+    </section>
   </main>
 </body>
 </html>
